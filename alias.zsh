@@ -1,19 +1,20 @@
+
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 export PATH="$PATH:/opt/homebrew/bin/"
 
 alias g='git'
-alias g-s='git status'
-alias g-p='git push origin $(git branch | sed -r "s/^[ \*]+//" | peco)'
-alias g-a='git add'
-alias g-cob='git diff'
-alias g-c='git commit'
-alias g-co='git checkout $(git branch | sed -r "s/^[ \*]+//" | peco)'
-alias g-cob='git checkout -b'
-alias g-b='git branch'
-alias g-l='git log'
-alias g-p='git pull origin $(git branch | sed -r "s/^[ \*]+//" | peco)'
-alias g-d='git diff'
+alias status='git status'
+alias push='git push origin $(git branch | sed -r "s/^[ \*]+//" | peco)'
+alias add='git add'
+alias diff='git diff'
+alias commit='git commit'
+alias co='git checkout $(git branch | sed -r "s/^[ \*]+//" | peco)'
+alias cob='git checkout -b'
+alias log='git log'
+alias pull='git pull origin $(git branch | sed -r "s/^[ \*]+//" | peco)'
+alias clone='git clone'
+alias branch='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 alias dcp='docker compose ps'
 alias dcb='docker compose build'
@@ -41,7 +42,6 @@ function peco-get-destination-from-cdr() {
   peco --query "$LBUFFER"
 }
 
-
 ### 過去に移動したことのあるディレクトリを選択。ctrl-uにバインド
 function peco-cdr() {
   local destination="$(peco-get-destination-from-cdr)"
@@ -55,9 +55,8 @@ function peco-cdr() {
 zle -N peco-cdr
 bindkey '^u' peco-cdr
 
-
 # ブランチを簡単切り替え。git checkout lbで実行できる
-alias -g lb='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
+alias branch='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 # dockerコンテナに入る。deで実行できる
 alias de='docker exec -it $(docker ps | peco | cut -d " " -f 1) /bin/bash'

@@ -1,0 +1,2 @@
+//コミットのデフォルトメッセージ設定
+git config --global commit.template ~/.zsh/gitmessage.txt
